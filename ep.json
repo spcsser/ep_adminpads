@@ -1,0 +1,12 @@
+{
+    "parts": [
+        {
+            "name": "PLUGINNAME",
+            "hooks": {
+                "authorize" : "ep_FOLDERNAME/YOURFILE:FUNCTIONNAME1",
+                "authenticate": "ep_FOLDERNAME/YOURFILE:FUNCTIONNAME2",
+                "expressCreateServer": "ep_FOLDERNAME/YOURFILE:FUNCTIONNAME3",
+            }
+        }
+    ]
+}
