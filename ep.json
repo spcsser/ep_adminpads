@@ -3,9 +3,10 @@
         {
             "name": "PLUGINNAME",
             "hooks": {
-                "authorize" : "ep_FOLDERNAME/YOURFILE:FUNCTIONNAME1",
-                "authenticate": "ep_FOLDERNAME/YOURFILE:FUNCTIONNAME2",
-                "expressCreateServer": "ep_FOLDERNAME/YOURFILE:FUNCTIONNAME3"
+                "HOOKNAME" : "ep_FOLDERNAME/index:FUNCTIONNAME1"
+            },
+            "client_hooks": {
+                "CLIENT_HOOKNAME" : "ep_FOLDERNAME/static/js/index:FUNCTIONNAME1"
             }
         }
     ]
