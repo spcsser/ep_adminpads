@@ -1,7 +1,7 @@
-ep_base
-=======
+ep_listpads
+===========
 
-A sample etherpad-lite plugin
+Plugin for etherpad lite to list pads on index
 
 # notes
     replace all CAPITALIZED names with whatever you want
