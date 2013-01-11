@@ -1,9 +1,7 @@
 {
-	"name": "ep_PLUGINNAME",
+	"name": "ep_adminpads",
 	"version": "0.0.1",
-	"description": "DESCRIPTION",
-	"author": "USERNAME (REAL NAME) <MAIL@EXAMPLE.COM>",
-	"contributors": [],
-	"dependencies": {"MODULE": "0.3.20"},
+	"description": "Gives the ability to list and administrate all pads on admin page",
+	"author": "spcsser (Swen Jung) <swen.jung@psx-technology.com>",
 	"engines": { "node": ">= 0.6.0"}
 }

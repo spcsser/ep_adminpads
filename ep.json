@@ -1,12 +1,10 @@
 {
     "parts": [
         {
-            "name": "PLUGINNAME",
+            "name": "ep_adminpads",
             "hooks": {
-                "HOOKNAME" : "ep_FOLDERNAME/index:FUNCTIONNAME1"
-            },
-            "client_hooks": {
-                "CLIENT_HOOKNAME" : "ep_FOLDERNAME/static/js/index:FUNCTIONNAME1"
+                "expressCreateServer" : "ep_adminpads/index:registerRoute",
+                "socketio" : "ep_adminpads/index:socketio"
             }
         }
     ]
