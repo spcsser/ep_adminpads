@@ -1,25 +1,28 @@
 var eejs = require('ep_etherpad-lite/node/eejs')
   , padManager = require('ep_etherpad-lite/node/db/PadManager')
+  , log4js = require('log4js')
+  , logger = log4js.getLogger("plugin:adminpads")
 ;
 RegExp.quote = require('regexp-quote')
 var isNumeric=function(arg){
-  return typeof(arg)=="number";
+  return typeof(arg)=="number" || (typeof(arg) == "string" && parseInt(arg));
 };
 
 var pads={
   pads:[] ,
   search: function(query, callback){
-    
+    logger.debug("Admin/Pad | Query is",query);
     var pads=padManager.getPads()
       , data={
         progress : 1
         , message: "Search done."
         , query: query
-        , total: Math.ceil(pads.length/12)
+        , total: pads.length
       }
       , maxResult=0
       , result=[]
     ;
+    
     if(query["pattern"] != null && query["pattern"] != ''){
       var pattern=query.pattern+"*";
       pattern=RegExp.quote(pattern);
@@ -35,6 +38,8 @@ var pads={
       result=pads;
     }
     
+    data.total=result.length;
+    
     maxResult=result.length-1;
     if(maxResult<0)maxResult=0;
     
@@ -43,7 +48,7 @@ var pads={
     
     if(!isNumeric(query.limit) || query.limit<0) query.limit=12;
     
-    data.results=result.slice(query.offset, query.limit);
+    data.results=result.slice(query.offset, query.offset + query.limit);
     pads.pads=data.results;
     
     callback(data);
@@ -68,7 +73,7 @@ exports.socketio = function (hook_name, args, cb) {
 
     socket.on("load", function (query) {
       console.log("load, query: %s",query);
-      pads.search({parttern:'', offset:0, limit:12}, function (progress) {
+      pads.search({pattern:'', offset:0, limit:12}, function (progress) {
         socket.emit("search-result", progress);
       });
     });

@@ -25,17 +25,24 @@ exports.documentReady=function(hooks, context, cb){
     socket.emit("search", $('.search-results').data('query'));
   }
 
+  var submitSearch=function () {
+    var query = $('.search-results').data('query');
+    query.pattern = $("#search-query")[0].value;
+    query.offset = 0;
+    search();
+  };
+  
   function updateHandlers() {
     $("#progress.dialog .close").unbind('click').click(function () {
       $("#progress.dialog").hide();
     });
 
-    $("#do-search").unbind('click').click(function () {
-      var query = $('.search-results').data('query');
-      query.pattern = $("#search-query")[0].value;
-      query.offset = 0;
-      search();
+    $("#search-form").unbind('submit').bind('submit', function(e){
+      e.preventDefault();
+      submitSearch();
     });
+    
+    $("#do-search").unbind('click').click(submitSearch);
 
     $(".do-delete").unbind('click').click(function (e) {
       var row = $(e.target).closest("tr");
@@ -96,13 +103,16 @@ exports.documentReady=function(hooks, context, cb){
   });
 
   socket.on('search-result', function (data) {
-    var widget=$(".search-results");
+    var widget=$(".search-results")
+      , limit = data.query.offset + data.query.limit
+    ;
+    if(limit > data.total)limit=data.total;
 
     widget.data('query', data.query);
     widget.data('total', data.total);
 
     widget.find('.offset').html(data.query.offset);
-    widget.find('.limit').html(data.query.offset + data.query.limit);
+    widget.find('.limit').html(limit);
     widget.find('.total').html(data.total);
 
     widget.find(".results *").remove();

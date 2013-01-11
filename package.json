@@ -5,6 +5,7 @@
   "author": "spcsser (Swen Jung) <swen.jung@psx-technology.com>",
   "engines": { "node": ">= 0.6.0"},
   "dependencies": {
-    "regexp-quote" : "*"
+    "regexp-quote" : "*",
+    "log4js" : "*"
   }
 }
