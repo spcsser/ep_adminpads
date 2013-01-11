@@ -1,7 +1,7 @@
-ep_listpads
+ep_adminpads
 ===========
 
-Plugin for etherpad lite to list pads on index
+Plugin for etherpad lite for admins to list, search and delete pads. The route is `admin/pads`
 
 # notes
     replace all CAPITALIZED names with whatever you want
