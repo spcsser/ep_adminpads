@@ -3,9 +3,50 @@
     <title>Pad administration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link rel="stylesheet" href="../static/css/admin.css">
+    
+    <% e.begin_block("scripts"); %>
     <script src="../static/js/jquery.js"></script>
     <script src="../socket.io/socket.io.js"></script>
-    <script src="../static/js/admin/pads.js"></script>
+    <script type="text/javascript" src="../static/js/require-kernel.js"></script>
+    <script type="text/javascript" src="../socket.io/socket.io.js"></script>
+
+    <!-- Include base packages manually (this help with debugging) -->
+    <script type="text/javascript" src="../javascripts/lib/ep_etherpad-lite/static/js/ace2_common.js?callback=require.define"></script>
+
+    <!-- Bootstrap page -->
+    <script type="text/javascript">
+      var clientVars = {};
+      (function () {
+        var pathComponents = location.pathname.split('/');
+              
+        // Strip 'p' and the padname from the pathname and set as baseURL
+        var baseURL = pathComponents.slice(0,pathComponents.length-2).join('/') + '/';
+
+        require.setRootURI(baseURL + "javascripts/src");
+        require.setLibraryURI(baseURL + "javascripts/lib");
+        require.setGlobalKeyPath("require");
+
+        $ = jQuery = require('ep_etherpad-lite/static/js/rjquery').jQuery; // Expose jQuery #HACK
+
+        if ((!$.browser.msie) && (!($.browser.mozilla && $.browser.version.indexOf("1.8.") == 0))) {
+          document.domain = document.domain; // for comet
+        }
+
+        var plugins = require('ep_etherpad-lite/static/js/pluginfw/client_plugins');
+        var hooks = require('ep_etherpad-lite/static/js/pluginfw/hooks');
+
+        plugins.baseURL = baseURL;
+        plugins.update(function () {
+          hooks.plugins = plugins;
+
+          // Call documentReady hook
+          $(function() {
+            hooks.aCallAll('documentReady','admin/pads');
+          });
+        });
+      }());
+    </script>
+    <% e.end_block(); %>
   </head>
   <body>
     <div id="wrapper">
@@ -61,4 +102,5 @@
       </div>
     </div>
   </body>
+  
 </html>

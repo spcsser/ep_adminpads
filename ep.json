@@ -5,6 +5,9 @@
             "hooks": {
                 "expressCreateServer" : "ep_adminpads/index:registerRoute",
                 "socketio" : "ep_adminpads/index:socketio"
+            },
+            "client_hooks" : {
+                "documentReady" : "ep_adminpads/static/js/admin/pads"
             }
         }
     ]
