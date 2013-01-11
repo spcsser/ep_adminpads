@@ -6,6 +6,8 @@
   "engines": { "node": ">= 0.6.0"},
   "dependencies": {
     "regexp-quote" : "*",
-    "log4js" : "*"
+    "log4js" : "*",
+    "ep_etherpad-lite" : ">= 1.2.4",
+    "ueberDB" : ">= 0.1.9"
   }
 }
