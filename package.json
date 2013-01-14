@@ -7,7 +7,6 @@
   "dependencies": {
     "regexp-quote" : "*",
     "log4js" : "0.5.x",
-    "ep_etherpad-lite" : ">= 1.2.4",
     "ueberDB" : ">= 0.1.9"
   }
 }
