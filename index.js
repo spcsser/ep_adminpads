@@ -90,8 +90,11 @@ exports.socketio = function (hook_name, args, cb) {
         if(err) return;
         if(padExists){
           //pad exists, remove
-          padManager.removePad(padId);
-          socket.emit("progress",{progress:1});
+          padManager.getPad(padId,null,function(err,pad){
+            pad.remove(function(){
+              socket.emit("progress",{progress:1});
+            });
+          });
         }else{
           //pad does not exist - what now?
         }

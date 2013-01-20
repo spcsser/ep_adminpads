@@ -1,5 +1,5 @@
 exports.documentReady=function(hooks, context, cb){
-  if(context != 'admin/pads') return;
+  if(context != 'admin/pads') return cb;
   
   var socket,
   loc = document.location,
