@@ -66,8 +66,10 @@ exports.registerRoute = function (hook_name, args, cb) {
   });
 };
 
+var io = null;
+
 exports.socketio = function (hook_name, args, cb) {
-  var io = args.io.of("/pluginfw/admin/pads");
+  io = args.io.of("/pluginfw/admin/pads");
   io.on('connection', function (socket) {
     if (!socket.handshake.session.user || !socket.handshake.session.user.is_admin) return;
 
@@ -91,9 +93,8 @@ exports.socketio = function (hook_name, args, cb) {
         if(padExists){
           //pad exists, remove
           padManager.getPad(padId,null,function(err,pad){
-            pad.remove(function(){
-              socket.emit("progress",{progress:1});
-            });
+            pad.remove(function(){});
+            socket.emit("progress",{progress:1});
           });
         }else{
           //pad does not exist - what now?
@@ -101,4 +102,8 @@ exports.socketio = function (hook_name, args, cb) {
       });
     });
   });
+};
+
+exports.updatePads=function(hook_name, args, cb){
+  io.emit("progress",{progress:1});
 };

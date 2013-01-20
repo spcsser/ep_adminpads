@@ -1,4 +1,5 @@
 exports.documentReady=function(hooks, context, cb){
+  
   if(context != 'admin/pads') return cb;
   
   var socket,
@@ -20,6 +21,9 @@ exports.documentReady=function(hooks, context, cb){
   });
 
   var doUpdate = false;
+  var doAutoUpdate=function(){
+    return $('#results-autoupdate').attr('checked')==='checked';
+  };
 
   var search = function () {
     socket.emit("search", $('.search-results').data('query'));
@@ -96,7 +100,7 @@ exports.documentReady=function(hooks, context, cb){
       if (data.error) {
         $("#progress.dialog .close").show();
       } else {
-        if (doUpdate) {
+        if (doUpdate || doAutoUpdate()) {
           doUpdate = false;
           socket.emit("load");
         }

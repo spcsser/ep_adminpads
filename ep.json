@@ -4,7 +4,9 @@
             "name": "ep_adminpads",
             "hooks": {
                 "expressCreateServer" : "ep_adminpads/index:registerRoute",
-                "socketio" : "ep_adminpads/index:socketio"
+                "socketio" : "ep_adminpads/index:socketio",
+                "padRemove" : "ep_adminpads/index:updatePads",
+                "padCreate" : "ep_adminpads/index:updatePads"
             },
             "client_hooks" : {
                 "documentReady" : "ep_adminpads/static/js/admin/pads"
