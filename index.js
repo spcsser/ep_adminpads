@@ -12,7 +12,7 @@ var pads={
   pads:[] ,
   search: function(query, callback){
     logger.debug("Admin/Pad | Query is",query);
-    var pads=padManager.getPads()
+    var pads=padManager.listAllPads().padIDs
       , data={
         progress : 1
         , message: "Search done."
@@ -84,9 +84,18 @@ exports.socketio = function (hook_name, args, cb) {
       });
     });
 
-    socket.on("delete", function (plugin_name) {
-      
+    socket.on("delete", function (padId) {
+      padManager.doesPadExists(padId,function(err, padExists){
+        //What if error occurs?
+        if(err) return;
+        if(padExists){
+          //pad exists, remove
+          padManager.removePad(padId);
+          socket.emit("progress",{progress:1});
+        }else{
+          //pad does not exist - what now?
+        }
+      });
     });
-    socket.on
   });
 };

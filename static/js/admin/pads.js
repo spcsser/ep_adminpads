@@ -46,8 +46,11 @@ exports.documentReady=function(hooks, context, cb){
 
     $(".do-delete").unbind('click').click(function (e) {
       var row = $(e.target).closest("tr");
-      doUpdate = true;
-      socket.emit("delete", row.find(".padname").html());
+      var padID=row.find(".padname").text();
+      if(confirm("Do you really want to delete the pad '"+padID+"' ?")){
+        doUpdate = true;
+        socket.emit("delete", padID);
+      }
     });
 
     $(".do-prev-page").unbind('click').click(function (e) {
