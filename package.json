@@ -6,6 +6,7 @@
   "engines": { "node": ">= 0.6.0"},
   "dependencies": {
     "regexp-quote" : "*",
-    "log4js" : "*"
+    "log4js" : "0.5.x",
+    "ueberDB" : ">= 0.1.9"
   }
 }
