@@ -1,13 +1,11 @@
 {
   "name": "ep_adminpads",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Gives the ability to list and administrate all pads on admin page",
   "author": "spcsser (Swen Jung) <swen.jung@psx-technology.com>",
   "engines": { "node": ">= 0.6.0"},
   "dependencies": {
     "regexp-quote" : "*",
-    "log4js" : "*",
-    "ep_etherpad-lite" : ">= 1.2.4",
-    "ueberDB" : ">= 0.1.9"
+    "log4js" : "*"
   }
 }
