@@ -2,7 +2,7 @@ var eejs = require('ep_etherpad-lite/node/eejs')
   , padManager = require('ep_etherpad-lite/node/db/PadManager')
   , log4js = require('log4js')
   , logger = log4js.getLogger("plugin:adminpads")
-  , queryLimit=20
+  , queryLimit=12
 ;
 RegExp.quote = require('regexp-quote')
 var isNumeric=function(arg){

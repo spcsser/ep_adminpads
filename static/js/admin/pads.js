@@ -17,7 +17,7 @@ exports.documentReady=function(hooks, context, cb){
   $('.search-results').data('query', {
     pattern: '',
     offset: 0,
-    limit: 20,
+    limit: 12,
   });
 
   var doUpdate = false;
