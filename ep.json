@@ -6,7 +6,8 @@
                 "expressCreateServer" : "ep_adminpads/index:registerRoute",
                 "socketio" : "ep_adminpads/index:socketio",
                 "padRemove" : "ep_adminpads/index:updatePads",
-                "padCreate" : "ep_adminpads/index:updatePads"
+                "padCreate" : "ep_adminpads/index:updatePads",
+                "eejsBlock_adminMenu" : "ep_adminpads/index"
             },
             "client_hooks" : {
                 "documentReady" : "ep_adminpads/static/js/admin/pads"

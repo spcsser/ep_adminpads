@@ -2,6 +2,7 @@ var eejs = require('ep_etherpad-lite/node/eejs')
   , padManager = require('ep_etherpad-lite/node/db/PadManager')
   , log4js = require('log4js')
   , logger = log4js.getLogger("plugin:adminpads")
+  , queryLimit=20
 ;
 RegExp.quote = require('regexp-quote')
 var isNumeric=function(arg){
@@ -46,7 +47,7 @@ var pads={
     if(!isNumeric(query.offset) || query.offset<0) query.offset=0;
     else if(query.offset>maxResult) query.offset=maxResult;
     
-    if(!isNumeric(query.limit) || query.limit<0) query.limit=12;
+    if(!isNumeric(query.limit) || query.limit<0) query.limit=queryLimit;
     
     data.results=result.slice(query.offset, query.offset + query.limit);
     pads.pads=data.results;
@@ -75,7 +76,7 @@ exports.socketio = function (hook_name, args, cb) {
 
     socket.on("load", function (query) {
       console.log("load, query: %s",query);
-      pads.search({pattern:'', offset:0, limit:12}, function (progress) {
+      pads.search({pattern:'', offset:0, limit:queryLimit}, function (progress) {
         socket.emit("search-result", progress);
       });
     });
@@ -106,4 +107,16 @@ exports.socketio = function (hook_name, args, cb) {
 
 exports.updatePads=function(hook_name, args, cb){
   io.emit("progress",{progress:1});
+};
+
+exports.eejsBlock_adminMenu = function (hook_name, args, cb) {
+  console.log(args);
+  var hasAdminUrlPrefix = (args.content.indexOf('<a href="admin/') != -1)
+    , hasOneDirDown = (args.content.indexOf('<a href="../') != -1)
+    , hasTwoDirDown = (args.content.indexOf('<a href="../../') != -1)
+    , urlPrefix = hasAdminUrlPrefix ? "admin/" : hasTwoDirDown ? "../../" : hasOneDirDown ? "../" : ""
+  ;
+  
+  args.content = args.content + '<li><a href="'+ urlPrefix +'pads">Manage pads</a> </li>';
+  return cb();
 };
