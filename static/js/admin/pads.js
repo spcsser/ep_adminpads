@@ -78,7 +78,6 @@ exports.documentReady=function(hooks, context, cb){
   updateHandlers();
 
   socket.on('progress', function (data) {
-    console.log(data);
     if (data.progress > 0 && $('#progress.dialog').data('progress') > data.progress) return;
 
     $("#progress.dialog .close").hide();
