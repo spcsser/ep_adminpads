@@ -78,12 +78,11 @@ exports.documentReady=function(hooks, context, cb){
   updateHandlers();
 
   socket.on('progress', function (data) {
-    if (data.progress > 0 && $('#progress.dialog').data('progress') > data.progress) return;
+    console.log(data);
+    $("#progress .close").hide();
+    $("#progress").show();
 
-    $("#progress.dialog .close").hide();
-    $("#progress.dialog").show();
-
-    $('#progress.dialog').data('progress', data.progress);
+    $('#progress').data('progress', data.progress);
 
     var message = "Unknown status";
     if (data.message) {
@@ -92,18 +91,17 @@ exports.documentReady=function(hooks, context, cb){
     if (data.error) {
       message = "<span class='error'>" + data.error.toString() + "<span>";            
     }
-    $("#progress.dialog .message").html(message);
-    $("#progress.dialog .history").append("<div>" + message + "</div>");
+    $("#progress .message").html(message);
 
     if (data.progress >= 1) {
       if (data.error) {
-        $("#progress.dialog .close").show();
+        $("#progress").show();
       } else {
         if (doUpdate || doAutoUpdate()) {
           doUpdate = false;
           socket.emit("load");
         }
-        $("#progress.dialog").hide();
+        $("#progress").hide();
       }
     }
   });

@@ -81,6 +81,7 @@ exports.socketio = function (hook_name, args, cb) {
 
     socket.on("search", function (query) {
       pads.search(query, function (progress) {
+        io.emit("progress",{progress:1});
         socket.emit("search-result", progress);
       });
     });
