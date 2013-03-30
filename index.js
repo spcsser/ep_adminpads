@@ -58,7 +58,6 @@ var pads={
 
 exports.registerRoute = function (hook_name, args, cb) {
   args.app.get('/admin/pads', function(req, res) {
-    console.log('Admin pads opened');
     
     var render_args = {
       errors: []
@@ -75,7 +74,6 @@ exports.socketio = function (hook_name, args, cb) {
     if (!socket.handshake.session.user || !socket.handshake.session.user.is_admin) return;
 
     socket.on("load", function (query) {
-      console.log("load, query: %s",query);
       pads.search({pattern:'', offset:0, limit:queryLimit}, function (progress) {
         socket.emit("search-result", progress);
       });
@@ -110,7 +108,6 @@ exports.updatePads=function(hook_name, args, cb){
 };
 
 exports.eejsBlock_adminMenu = function (hook_name, args, cb) {
-  console.log(args);
   var hasAdminUrlPrefix = (args.content.indexOf('<a href="admin/') != -1)
     , hasOneDirDown = (args.content.indexOf('<a href="../') != -1)
     , hasTwoDirDown = (args.content.indexOf('<a href="../../') != -1)
