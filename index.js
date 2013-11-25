@@ -1,5 +1,6 @@
 var eejs = require('ep_etherpad-lite/node/eejs')
   , padManager = require('ep_etherpad-lite/node/db/PadManager')
+  , api = require('ep_etherpad-lite/node/db/API')
   , log4js = require('log4js')
   , logger = log4js.getLogger("plugin:adminpads")
   , queryLimit=12
@@ -53,9 +54,22 @@ var pads={
     
     if(!isNumeric(query.limit) || query.limit<0) query.limit=queryLimit;
     
-    data.results=result.slice(query.offset, query.offset + query.limit);
-    pads.pads=data.results;
+    var rs=result.slice(query.offset, query.offset + query.limit);
     
+    pads.pads=rs;
+    
+    var entryset;
+    data.results=[];
+    
+    rs.forEach(function(value){
+        entryset={padName:value, lastEdited:''};
+        api.getLastEdited(value,function(err,resultObject){
+            if(err==null){
+                entryset.lastEdited=resultObject.lastEdited;
+            }
+            data.results.push(entryset);
+        });
+    });
     callback(data);
   }
 };
