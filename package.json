@@ -1,6 +1,6 @@
 {
   "name": "ep_adminpads",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Gives the ability to list and administrate all pads on admin page",
   "author": "spcsser (Swen Jung) <swen.jung@psx-technology.com>",
   "engines": { "node": ">= 0.6.0"},
