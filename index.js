@@ -12,9 +12,13 @@ var isNumeric=function(arg){
 var pads={
   pads:[] ,
   search: function(query, callback){
+    padManager.listAllPads(function(null_value, the_pads) {
+      pads._do_search(the_pads.padIDs, query, callback);
+    });
+  },
+  _do_search: function(pads, query, callback){
     logger.debug("Admin/Pad | Query is",query);
-    var pads=padManager.listAllPads().padIDs
-      , data={
+    var data={
         progress : 1
         , message: "Search done."
         , query: query
