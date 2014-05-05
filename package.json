@@ -5,6 +5,10 @@
   "author": "spcsser (Swen Jung) <swen.jung@psx-technology.com>",
   "engines": { "node": ">= 0.6.0"},
   "bugs": {"url" : "https://github.com/spcsser/ep_adminpads/issues"},
+  "repository" :
+   { "type" : "git"
+    , "url" : "https://github.com/spcsser/ep_adminpads.git"
+  }
   "dependencies": {
     "regexp-quote" : "*",
     "log4js" : ">= 0.5.x"
