@@ -45,7 +45,7 @@ exports.documentReady=function(hooks, context, cb){
     if(longtime!=null && isInt(longtime)){
         var date=new Date(longtime);
         var month=date.getMonth()+1;
-        formattedDate=date.getFullYear()+'-'+fillZeros(month)+'-'+fillZeros(date.getDay())+' '+fillZeros(date.getHours())+':'+fillZeros(date.getMinutes())+':'+fillZeros(date.getSeconds());
+        formattedDate=date.getFullYear()+'-'+fillZeros(month)+'-'+fillZeros(date.getDate())+' '+fillZeros(date.getHours())+':'+fillZeros(date.getMinutes())+':'+fillZeros(date.getSeconds());
     }
     return formattedDate;
   };
