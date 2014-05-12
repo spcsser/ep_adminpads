@@ -8,7 +8,7 @@
   "repository" :
    { "type" : "git"
     , "url" : "https://github.com/spcsser/ep_adminpads.git"
-  }
+  },
   "dependencies": {
     "regexp-quote" : "*",
     "log4js" : ">= 0.5.x"
