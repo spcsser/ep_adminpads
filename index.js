@@ -30,7 +30,7 @@ var pads={
     ;
     
     if(query["pattern"] != null && query["pattern"] != ''){
-      var pattern=query.pattern+"*";
+      var pattern="*"+query.pattern+"*";
       pattern=RegExp.quote(pattern);
       pattern=pattern.replace(/(\\\*)+/g,'.*');
       pattern="^"+pattern+"$";
