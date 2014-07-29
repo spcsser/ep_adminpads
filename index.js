@@ -67,8 +67,8 @@ var pads={
             if(err==null){
                 entryset.lastEdited=resultObject.lastEdited;
             }
-            data.results.push(entryset);
         });
+        data.results.push(entryset);
     });
     callback(data);
   }
