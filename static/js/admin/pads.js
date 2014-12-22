@@ -27,13 +27,31 @@ exports.documentReady=function(hooks, context, cb){
 
   var search = function () {
     socket.emit("search", $('.search-results').data('query'));
-  }
+  };
 
   var submitSearch=function () {
     var query = $('.search-results').data('query');
     query.pattern = $("#search-query")[0].value;
     query.offset = 0;
     search();
+  };
+  
+  var isInt=function(input){
+    return typeof input === 'number' && input % 1 == 0;
+  };
+  
+  var formatDate=function(longtime){
+    var formattedDate='';
+    if(longtime!=null && isInt(longtime)){
+        var date=new Date(longtime);
+        var month=date.getMonth()+1;
+        formattedDate=date.getFullYear()+'-'+fillZeros(month)+'-'+fillZeros(date.getDate())+' '+fillZeros(date.getHours())+':'+fillZeros(date.getMinutes())+':'+fillZeros(date.getSeconds());
+    }
+    return formattedDate;
+  };
+  
+  var fillZeros=function(fillForm){
+    return isInt(fillForm) ? ( fillForm < 10 ? '0' + fillForm : fillForm) : '';
   };
   
   function updateHandlers() {
@@ -122,9 +140,12 @@ exports.documentReady=function(hooks, context, cb){
     widget.find(".results *").remove();
     var resultList=widget.find('.results');
     
-    data.results.forEach(function(pad_name) {
+    data.results.forEach(function(resultset) {
+      var padName=resultset.padName;
+      var lastEdited=resultset.lastEdited;
       var row = widget.find(".template tr").clone();
-      row.find(".padname").html('<a href="../p/'+pad_name+'">'+pad_name+'</a>');
+      row.find(".padname").html('<a href="../p/'+padName+'">'+padName+'</a>');
+      row.find(".last-edited").html(formatDate(lastEdited));
       resultList.append(row);
     });
 

@@ -1,5 +1,6 @@
 var eejs = require('ep_etherpad-lite/node/eejs')
   , padManager = require('ep_etherpad-lite/node/db/PadManager')
+  , api = require('ep_etherpad-lite/node/db/API')
   , log4js = require('log4js')
   , logger = log4js.getLogger("plugin:adminpads")
   , queryLimit=12
@@ -12,9 +13,13 @@ var isNumeric=function(arg){
 var pads={
   pads:[] ,
   search: function(query, callback){
+    padManager.listAllPads(function(null_value, the_pads) {
+      pads._do_search(the_pads.padIDs, query, callback);
+    });
+  },
+  _do_search: function(pads, query, callback){
     logger.debug("Admin/Pad | Query is",query);
-    var pads=padManager.listAllPads().padIDs
-      , data={
+    var data={
         progress : 1
         , message: "Search done."
         , query: query
@@ -25,7 +30,7 @@ var pads={
     ;
     
     if(query["pattern"] != null && query["pattern"] != ''){
-      var pattern=query.pattern+"*";
+      var pattern="*"+query.pattern+"*";
       pattern=RegExp.quote(pattern);
       pattern=pattern.replace(/(\\\*)+/g,'.*');
       pattern="^"+pattern+"$";
@@ -49,9 +54,22 @@ var pads={
     
     if(!isNumeric(query.limit) || query.limit<0) query.limit=queryLimit;
     
-    data.results=result.slice(query.offset, query.offset + query.limit);
-    pads.pads=data.results;
+    var rs=result.slice(query.offset, query.offset + query.limit);
     
+    pads.pads=rs;
+    
+    var entryset;
+    data.results=[];
+    
+    rs.forEach(function(value){
+        entryset={padName:value, lastEdited:''};
+        api.getLastEdited(value,function(err,resultObject){
+            if(err==null){
+                entryset.lastEdited=resultObject.lastEdited;
+            }
+        });
+        data.results.push(entryset);
+    });
     callback(data);
   }
 };
