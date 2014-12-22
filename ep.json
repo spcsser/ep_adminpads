@@ -7,10 +7,10 @@
                 "socketio" : "ep_adminpads/index:socketio",
                 "padRemove" : "ep_adminpads/index:updatePads",
                 "padCreate" : "ep_adminpads/index:updatePads",
-                "eejsBlock_adminMenu" : "ep_adminpads/index"
+                "eejsBlock_adminMenu" : "ep_adminpads/index:eejsBlock_adminMenu"
             },
             "client_hooks" : {
-                "documentReady" : "ep_adminpads/static/js/admin/pads"
+                "documentReady" : "ep_adminpads/static/js/admin/pads:documentReady"
             }
         }
     ]

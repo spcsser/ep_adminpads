@@ -89,8 +89,6 @@ var io = null;
 exports.socketio = function (hook_name, args, cb) {
   io = args.io.of("/pluginfw/admin/pads");
   io.on('connection', function (socket) {
-    if (!socket.handshake.session.user || !socket.handshake.session.user.is_admin) return;
-
     socket.on("load", function (query) {
       pads.search({pattern:'', offset:0, limit:queryLimit}, function (progress) {
         socket.emit("search-result", progress);

@@ -11,8 +11,10 @@ exports.documentReady=function(hooks, context, cb){
   baseURL = pathComponents.slice(0,pathComponents.length-2).join('/') + '/',
   resource = baseURL.substring(1) + "socket.io";
 
+  var room = url + "pluginfw/admin/pads";
+  
   //connect
-  socket = io.connect(url, {resource : resource}).of("/pluginfw/admin/pads");
+  socket = io.connect(room, {resource : resource});
 
   $('.search-results').data('query', {
     pattern: '',
