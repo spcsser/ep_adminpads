@@ -62,15 +62,32 @@ var pads={
     data.results=[];
     
     rs.forEach(function(value){
-        entryset={padName:value, lastEdited:''};
-        api.getLastEdited(value,function(err,resultObject){
-            if(err==null){
-                entryset.lastEdited=resultObject.lastEdited;
-            }
-        });
-        data.results.push(entryset);
+      entryset={padName:value, lastEdited:'', userCount:0};
+      data.results.push(entryset);
     });
-    callback(data);
+    
+    var numOfQueries=0;
+    
+    data.results.forEach(function(value){
+          numOfQueries++;
+          api.getLastEdited(value.padName,function(err,resultObject){
+              if(err==null){
+                  value.lastEdited=resultObject.lastEdited;
+              }
+              if(--numOfQueries===0){
+                  callback(data);
+              }
+          })
+          numOfQueries++;
+          api.padUsersCount(value.padName,function(err,resultObject){
+              if(err==null){
+                  value.userCount=resultObject.padUsersCount;
+              }
+              if(--numOfQueries===0){
+                  callback(data);
+              }
+          });
+    });
   }
 };
 

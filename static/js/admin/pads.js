@@ -145,9 +145,11 @@ exports.documentReady=function(hooks, context, cb){
     data.results.forEach(function(resultset) {
       var padName=resultset.padName;
       var lastEdited=resultset.lastEdited;
+      var userCount=resultset.userCount;
       var row = widget.find(".template tr").clone();
       row.find(".padname").html('<a href="../p/'+padName+'">'+padName+'</a>');
       row.find(".last-edited").html(formatDate(lastEdited));
+      row.find(".user-count").html(userCount);
       resultList.append(row);
     });
 
