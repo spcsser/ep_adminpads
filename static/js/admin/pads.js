@@ -24,7 +24,7 @@ exports.documentReady=function(hooks, context, cb){
 
   var doUpdate = false;
   var doAutoUpdate=function(){
-    return $('#results-autoupdate').attr('checked')==='checked';
+    return $('#results-autoupdate').prop('checked');
   };
 
   var search = function () {
@@ -119,7 +119,7 @@ exports.documentReady=function(hooks, context, cb){
       } else {
         if (doUpdate || doAutoUpdate()) {
           doUpdate = false;
-          socket.emit("load");
+          search();
         }
         $("#progress").hide();
       }

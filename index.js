@@ -66,24 +66,32 @@ var pads={
       data.results.push(entryset);
     });
     
-    var numOfQueries=0;
+    var numOfQueries={
+        count : data.results.length*2,
+        inc : function(){return ++this.count;},
+        dec : function(){return --this.count;},
+        val : function(){return this.count;}
+    };
     
     data.results.forEach(function(value){
-          numOfQueries++;
+          console.log("Start: " + numOfQueries.val());
           api.getLastEdited(value.padName,function(err,resultObject){
               if(err==null){
                   value.lastEdited=resultObject.lastEdited;
               }
-              if(--numOfQueries===0){
+              console.log("LastEdited: " + numOfQueries.val());
+              if(numOfQueries.dec() <= 0){
+                  console.log("Callback done lastedited");
                   callback(data);
               }
           })
-          numOfQueries++;
           api.padUsersCount(value.padName,function(err,resultObject){
               if(err==null){
                   value.userCount=resultObject.padUsersCount;
               }
-              if(--numOfQueries===0){
+              console.log("PadUserCount: " + numOfQueries.val());
+              if(numOfQueries.dec() <= 0){
+                  console.log("Callback done padusercount");
                   callback(data);
               }
           });
@@ -114,7 +122,6 @@ exports.socketio = function (hook_name, args, cb) {
 
     socket.on("search", function (query) {
       pads.search(query, function (progress) {
-        io.emit("progress",{progress:1});
         socket.emit("search-result", progress);
       });
     });
