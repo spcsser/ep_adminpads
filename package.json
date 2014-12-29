@@ -3,11 +3,11 @@
   "version": "0.0.9-dev",
   "description": "Gives the ability to list and administrate all pads on admin page",
   "author": "spcsser (Swen Jung) <swen.jung@psx-technology.com>",
-  "engines": { "node": ">= 0.6.0"},
+  "engines": { "node": "*"},
   "bugs": {"url" : "https://github.com/spcsser/ep_adminpads/issues"},
   "repository" :
    { "type" : "git"
-    , "url" : "https://github.com/spcsser/ep_adminpads.git"
+    , "url" : "https://github.com/spcsser/ep_adminpads"
   },
   "dependencies": {
     "regexp-quote" : "*",
