@@ -98,7 +98,6 @@ exports.documentReady=function(hooks, context, cb){
   updateHandlers();
 
   socket.on('progress', function (data) {
-    console.log(data);
     $("#progress .close").hide();
     $("#progress").show();
 
