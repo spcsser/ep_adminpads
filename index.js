@@ -73,15 +73,13 @@ var pads={
         val : function(){return this.count;}
     };
     
-    data.results.forEach(function(value){
-          console.log("Start: " + numOfQueries.val());
+    if(data.results.length > 0){
+        data.results.forEach(function(value){
           api.getLastEdited(value.padName,function(err,resultObject){
               if(err==null){
                   value.lastEdited=resultObject.lastEdited;
               }
-              console.log("LastEdited: " + numOfQueries.val());
               if(numOfQueries.dec() <= 0){
-                  console.log("Callback done lastedited");
                   callback(data);
               }
           })
@@ -89,13 +87,15 @@ var pads={
               if(err==null){
                   value.userCount=resultObject.padUsersCount;
               }
-              console.log("PadUserCount: " + numOfQueries.val());
               if(numOfQueries.dec() <= 0){
-                  console.log("Callback done padusercount");
                   callback(data);
               }
           });
-    });
+        });
+    }else{
+      data.message = "No results";
+      callback(data);
+    }
   }
 };
 

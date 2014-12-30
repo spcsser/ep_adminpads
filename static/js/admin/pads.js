@@ -130,7 +130,9 @@ exports.documentReady=function(hooks, context, cb){
     var widget=$(".search-results")
       , limit = data.query.offset + data.query.limit
     ;
-    if(limit > data.total)limit=data.total;
+    if(limit > data.total) {
+      limit = data.total;
+    }
 
     widget.data('query', data.query);
     widget.data('total', data.total);
@@ -142,16 +144,20 @@ exports.documentReady=function(hooks, context, cb){
     widget.find(".results *").remove();
     var resultList=widget.find('.results');
     
-    data.results.forEach(function(resultset) {
-      var padName=resultset.padName;
-      var lastEdited=resultset.lastEdited;
-      var userCount=resultset.userCount;
-      var row = widget.find(".template tr").clone();
-      row.find(".padname").html('<a href="../p/'+padName+'">'+padName+'</a>');
-      row.find(".last-edited").html(formatDate(lastEdited));
-      row.find(".user-count").html(userCount);
-      resultList.append(row);
-    });
+    if(data.results.length > 0){
+      data.results.forEach(function(resultset) {
+        var padName=resultset.padName;
+        var lastEdited=resultset.lastEdited;
+        var userCount=resultset.userCount;
+        var row = widget.find(".template tr").clone();
+        row.find(".padname").html('<a href="../p/'+padName+'">'+padName+'</a>');
+        row.find(".last-edited").html(formatDate(lastEdited));
+        row.find(".user-count").html(userCount);
+        resultList.append(row);
+      });
+    }else{
+      resultList.append('<tr><td colspan="4" class="no-results">No results</td></tr>');
+    }
 
     updateHandlers();
   });
