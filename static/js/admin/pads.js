@@ -14,7 +14,7 @@ exports.documentReady=function(hooks, context, cb){
   var room = url + "pluginfw/admin/pads";
   
   //connect
-  socket = io.connect(room, {resource : resource});
+  socket = io.connect(room, {path: baseURL + "socket.io", resource : resource});
 
   $('.search-results').data('query', {
     pattern: '',
