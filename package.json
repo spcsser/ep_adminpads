@@ -1,6 +1,6 @@
 {
   "name": "ep_adminpads",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "license": "MIT",
   "description": "Gives the ability to list and administrate all pads on admin page",
   "author": "spcsser (Swen Jung) <swen.jung@psx-technology.com>",
