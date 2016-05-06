@@ -12,7 +12,9 @@ exports.documentReady=function(hooks, context, cb){
   resource = baseURL.substring(1) + "socket.io";
 
   var room = url + "pluginfw/admin/pads";
-  
+
+  var changeTimer;
+
   //connect
   socket = io.connect(room, {path: baseURL + "socket.io", resource : resource});
 
@@ -28,6 +30,7 @@ exports.documentReady=function(hooks, context, cb){
   };
 
   var search = function () {
+    clearTimeout(changeTimer);
     socket.emit("search", $('.search-results').data('query'));
   };
 
@@ -61,18 +64,26 @@ exports.documentReady=function(hooks, context, cb){
   };
   
   function updateHandlers() {
-    $("#progress.dialog .close").unbind('click').click(function () {
+    $("#progress.dialog .close").off('click').click(function () {
       $("#progress.dialog").hide();
     });
 
-    $("#search-form").unbind('submit').bind('submit', function(e){
+    $("#search-form").off('submit').on('submit', function(e){
       e.preventDefault();
       submitSearch();
     });
     
-    $("#do-search").unbind('click').click(submitSearch);
+    $("#do-search").off('click').click(submitSearch);
 
-    $(".do-delete").unbind('click').click(function (e) {
+    $("#search-query").off('change paste keyup').on('change paste keyup', function(e) {
+      clearTimeout(changeTimer);
+      changeTimer = setTimeout(function(){
+        e.preventDefault();
+        submitSearch();
+      }, 500);
+    });
+
+    $(".do-delete").off('click').click(function (e) {
       var row = $(e.target).closest("tr");
       var padID=row.find(".padname").text();
       if(confirm("Do you really want to delete the pad '"+padID+"' ?")){
@@ -81,7 +92,7 @@ exports.documentReady=function(hooks, context, cb){
       }
     });
 
-    $(".do-prev-page").unbind('click').click(function (e) {
+    $(".do-prev-page").off('click').click(function (e) {
       var query = $('.search-results').data('query');
       query.offset -= query.limit;
       if (query.offset < 0) {
@@ -89,7 +100,7 @@ exports.documentReady=function(hooks, context, cb){
       }
       search();
     });
-    $(".do-next-page").unbind('click').click(function (e) {
+    $(".do-next-page").off('click').click(function (e) {
       var query = $('.search-results').data('query');
       var total = $('.search-results').data('total');
       if (query.offset + query.limit < total) {
