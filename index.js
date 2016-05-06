@@ -5,7 +5,9 @@ var eejs = require('ep_etherpad-lite/node/eejs')
   , logger = log4js.getLogger("plugin:adminpads")
   , queryLimit=12
 ;
-RegExp.quote = require('regexp-quote')
+RegExp.quote = function (x) {
+  return x.toString().replace(/[-\\^$*+?.()|[\]{}]/g, "\\$&")
+};
 var isNumeric=function(arg){
   return typeof(arg)=="number" || (typeof(arg) == "string" && parseInt(arg));
 };
