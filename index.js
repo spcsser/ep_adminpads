@@ -1,8 +1,6 @@
 var eejs = require('ep_etherpad-lite/node/eejs')
   , padManager = require('ep_etherpad-lite/node/db/PadManager')
   , api = require('ep_etherpad-lite/node/db/API')
-  , log4js = require('log4js')
-  , logger = log4js.getLogger("plugin:adminpads")
   , queryLimit=12
 ;
 RegExp.quote = function (x) {
@@ -20,7 +18,6 @@ var pads={
     });
   },
   _do_search: function(pads, query, callback){
-    logger.debug("Admin/Pad | Query is",query);
     var data={
         progress : 1
         , message: "Search done."
