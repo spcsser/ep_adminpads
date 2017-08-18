@@ -1,6 +1,6 @@
 {
   "name": "ep_adminpads",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "license": "MIT",
   "description": "Gives the ability to list and administrate all pads on admin page",
   "author": "spcsser (Swen Jung) <swen.jung@psx-technology.com>",
@@ -9,8 +9,5 @@
   "repository" :
    { "type" : "git"
     , "url" : "https://github.com/spcsser/ep_adminpads"
-  },
-  "dependencies": {
-    "log4js" : ">= 0.5.x"
   }
 }
