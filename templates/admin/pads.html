@@ -22,12 +22,12 @@
 
     <!-- Bootstrap page -->
     <script type="text/javascript">
-      var clientVars = {};
+      let clientVars = {};
       (function () {
-        var pathComponents = location.pathname.split('/');
-              
+        let pathComponents = location.pathname.split('/');
+
         // Strip 'p' and the padname from the pathname and set as baseURL
-        var baseURL = pathComponents.slice(0,pathComponents.length-2).join('/') + '/';
+        let baseURL = pathComponents.slice(0, pathComponents.length - 2).join('/') + '/';
 
         require.setRootURI(baseURL + "javascripts/src");
         require.setLibraryURI(baseURL + "javascripts/lib");
@@ -35,8 +35,8 @@
 
         $ = jQuery = require('ep_etherpad-lite/static/js/rjquery').jQuery; // Expose jQuery #HACK
 
-        var plugins = require('ep_etherpad-lite/static/js/pluginfw/client_plugins');
-        var hooks = require('ep_etherpad-lite/static/js/pluginfw/hooks');
+        let plugins = require('ep_etherpad-lite/static/js/pluginfw/client_plugins');
+        let hooks = require('ep_etherpad-lite/static/js/pluginfw/hooks');
 
         plugins.baseURL = baseURL;
         plugins.update(function () {
@@ -71,7 +71,6 @@
           <li><a href="plugins/info">Troubleshooting information</a> </li>
           <% e.end_block(); %>
         </ul>
-        <div id="progress"><img src="../static/img/loading.gif" alt=""/>&nbsp;&nbsp;<span class="message"></span></div>
       </div>
 
       <div class="innerwrapper">
