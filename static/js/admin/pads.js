@@ -87,9 +87,7 @@ exports.documentReady = async function(hooks, context) {
         $(".do-delete").off("click").click(function (e) {
             let row = $(e.target).closest("tr");
             let padID = row.find(".padname").text();
-            if (confirm("Do you really want to delete the pad " + padID + "?"
-        ))
-            {
+            if (confirm("Do you really want to delete the pad " + padID + "?")) {
                 doUpdate = true;
                 socket.emit("delete", padID);
             }

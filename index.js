@@ -115,10 +115,8 @@ exports.socketio = function (hook_name, args) {
             if (padExists) {
                 //pad exists, remove
                 let pad = await padManager.getPad(padId);
-                pad.remove();
+                await pad.remove();
                 socket.emit("progress", {progress: 1});
-            } else {
-                //pad does not exist - what now?
             }
         });
     });
